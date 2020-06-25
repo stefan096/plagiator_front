@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-5">
+            <div class="panel-heading">
+                <h1>Prijava</h1>
+                <hr>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <form style="display: block;">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" minlength="5" maxlength="40" class="form-control" placeholder="Email"
+                                    id="tbEmail" name="email" [(ngModel)]="user.email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Lozinka</label>
+                                <input type="password" minlength="5" maxlength="30" class="form-control"
+                                    placeholder="Lozinka" id="tbSifre" name="password" [(ngModel)]="user.password"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Prijavi se" class="form-control btn btn-primary" id="btnGiris" (click)="login()">
+                            </div>
+                            <!-- <div class="form-group">
+                                <input type="button" value="Uloguj me" class="form-control btn btn-primary" id="btnGiris2"
+                                    (click)="prodji()">
+                            </div> -->
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
