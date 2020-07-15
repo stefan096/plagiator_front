@@ -12,9 +12,7 @@ import { User } from 'app/model/user/user';
 export class NavbarComponent implements OnInit {
   loggedIn: boolean = false;
   isAdmin = false;
-  isReviewer = false;
-  isAuthor = false;
-  isEditor = false;
+  isLogged = false;
   loggedUser: User = new User();
   
   constructor(private authService: AuthService, 
@@ -29,25 +27,18 @@ export class NavbarComponent implements OnInit {
       this.userService.findByEmail(this.loggedUser.email).subscribe(
         s=>{
           this.loggedUser = s;
-          // console.log(s);
-          // this.loggedUser.role.forEach(element => {
-          //   if(element.roleName == "ROLE_ADMIN"){
-          //     this.isAdmin = true;
-          //   }
+          console.log(s);
+          let roleName = this.loggedUser.role.userType;
 
-          //   if(element.roleName == "ROLE_REVIEWER"){
-          //     this.isReviewer = true;
-          //   }
+            if(roleName == "ROLE_ADMIN"){
+              this.isAdmin = true;
+            }
 
-          //   if(element.roleName == "ROLE_AUTHOR"){
-          //     this.isAuthor = true;
-          //   }
+            if(roleName == "ROLE_LOGGED"){
+              this.isLogged = true;
+            }
 
-          //   if(element.roleName == "ROLE_EDITOR"){
-          //     this.isEditor = true;
-          //   }
-          // });
-        });
+          });
     }
   }
 

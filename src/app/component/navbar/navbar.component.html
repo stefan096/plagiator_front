@@ -1,6 +1,6 @@
 <div class="bs-example">
 	<nav class="navbar navbar-expand-md navbar-light" style="background-color: #3494b9;">
-		<a class="navbar-brand" [routerLink]="['/home']" style="color: white;"><b>Naučni Centar</b></a>
+		<a class="navbar-brand" [routerLink]="['/home']" style="color: white;"><b>PLAGIATOR</b></a>
 		<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -8,16 +8,9 @@
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<div class="navbar-nav">
 				<a class="nav-item nav-link active" style="color: white;" [routerLink]="['/home']">Početna</a>
-				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/journal/show']" *ngIf="isAuthor || isAdmin">Prikaz časopisa</a>
-				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/papers/correction']" *ngIf="isAuthor">Ispravka radova</a>
-				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/journal/add']" *ngIf="isEditor">Unos časopisa</a>
-				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/journal/edit']" *ngIf="isEditor">Ispravka podataka časopisa</a>
-				<!--<a class="nav-item nav-link" style="color: white;" [routerLink]="['/paper/add']" *ngIf="loggedIn">Unos rada</a>-->
-				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/reviewer/activate']" *ngIf="loggedIn && isAdmin">Aktiviraj recezente</a>
-				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/journal/activate']" *ngIf="loggedIn && isAdmin">Pregledaj časopise</a>
-				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/papers']" *ngIf="loggedIn && isEditor">Pregledaj radove</a>
-				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/reviews']" *ngIf="loggedIn && isReviewer">Recenziraj</a>
-				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/collection']" >Kolekcija</a>
+				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/new-document']" >Proveri rad</a>
+				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/old-documents']" >Uploaduj stare dokumente</a>
+				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/users']" *ngIf="isAdmin">Korisnici</a>
 				
 			</div>
 			<div class="navbar-nav ml-auto">

@@ -25,7 +25,9 @@ export class ViewUsersComponent implements OnInit {
   p: any;
   loggedUser: User = new User();
 
-  constructor(private authService: AuthService, private modalService: NgbModal, private userService : UserService, private roleService: RoleService, private router: Router) {
+  constructor(private authService: AuthService, 
+    private modalService: NgbModal, private userService: UserService,
+     private roleService: RoleService, private router: Router) {
     let res = localStorage.getItem('token');
     if(res == null){
       this.router.navigate(['login']);
@@ -64,25 +66,25 @@ export class ViewUsersComponent implements OnInit {
   }
 
   viewRoles(user: User, viewConnected:any){
-      this.selectedUser = user;
-      this.userRoles = user.role;
-      this.modalReference = this.modalService.open(viewConnected, { centered: true });
+      // this.selectedUser = user;
+      // this.userRoles = user.role;
+      // this.modalReference = this.modalService.open(viewConnected, { centered: true });
   }
 
   deleteRole(role: Role){
-    this.userService.deleteRoleFromUser(this.selectedUser.id, role.id).subscribe(
-      s =>{
+    // this.userService.deleteRoleFromUser(this.selectedUser.id, role.id).subscribe(
+    //   s =>{
 
-        let pomRole: Role = new Role();
-        this.selectedUser.role.forEach(element => {
-          if(element.id === role.id){
-            pomRole = element;
-          }
-        })
+    //     let pomRole: Role = new Role();
+    //     this.selectedUser.role.forEach(element => {
+    //       if(element.id === role.id){
+    //         pomRole = element;
+    //       }
+    //     })
 
-        this.selectedUser.role.splice(this.selectedUser.role.indexOf(pomRole), 1)
-      }
-    );
+    //     this.selectedUser.role.splice(this.selectedUser.role.indexOf(pomRole), 1)
+    //   }
+    // );
   }
 
   goToRolesPage(){
@@ -90,33 +92,33 @@ export class ViewUsersComponent implements OnInit {
   }
 
   openAddingRolePopup(connect, user: User){
-    this.rolesDropDown = [];
-    this.selectedRole = "";
-    this.selectedUser = user;
-    this.allRoles.forEach(role => {
-          let hasRole = false;
-          user.role.forEach(userRole => {
-            if(role.id == userRole.id){
-              hasRole = true;
-            }
-          }
-        )
-        if(!hasRole){
-          this.rolesDropDown.push(role.roleName);
-        }
-      }
-    )
-    this.modalReference = this.modalService.open(connect, { centered: true });
+    // this.rolesDropDown = [];
+    // this.selectedRole = "";
+    // this.selectedUser = user;
+    // this.allRoles.forEach(role => {
+    //       let hasRole = false;
+    //       user.role.forEach(userRole => {
+    //         if(role.id == userRole.id){
+    //           hasRole = true;
+    //         }
+    //       }
+    //     )
+    //     if(!hasRole){
+    //       this.rolesDropDown.push(role.userType);
+    //     }
+    //   }
+    // )
+    // this.modalReference = this.modalService.open(connect, { centered: true });
   }
 
   addRoleAction(){
-    let roleForAdd = this.allRoles.find(element => element.roleName == this.selectedRole);
-    this.userService.addRoleToUser(this.selectedUser.id, roleForAdd.id).subscribe(
-      s => {
-        this.selectedUser.role.push(roleForAdd)
-        this.modalReference.close()
-      }
-    );
+    // let roleForAdd = this.allRoles.find(element => element.userType == this.selectedRole);
+    // this.userService.addRoleToUser(this.selectedUser.id, roleForAdd.id).subscribe(
+    //   s => {
+    //     this.selectedUser.role.push(roleForAdd)
+    //     this.modalReference.close()
+    //   }
+    // );
   }
 
   changeStateOfUser(user:User, boolState: boolean){

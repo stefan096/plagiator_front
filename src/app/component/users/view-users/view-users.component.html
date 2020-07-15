@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <ng-template #viewRolesTemplate let-modal>
    <div class="modal-header">
       <h3>Roles</h3>
@@ -18,9 +19,10 @@
 							</thead>
 							<tbody>
 								<h4 *ngIf = "userRoles?.length == 0"> There is no role for user </h4>
-								<tr *ngFor = "let i = index; let role of userRoles | paginate: { itemsPerPage: 10, currentPage: p }">
-									<td class="text-left" style="">{{role.roleName}}</td>
-									<td><button type="button" class="btn btn-primary" (click) = "deleteRole(role)" >Delete</button></td>
+								<tr>
+								<!-- <tr *ngFor = "let i = index; let role of userRoles | paginate: { itemsPerPage: 10, currentPage: p }"> -->
+									<td class="text-left" style="">{{userRoles.userType}}</td>
+									<!-- <td><button type="button" class="btn btn-primary" (click) = "deleteRole(role)" >Delete</button></td> -->
 								</tr>
 							</tbody>
 							<tfoot></tfoot>
@@ -48,7 +50,7 @@
 <div class="row">
 	<div class="col-md-8 offset-sm-2" style="margin-top: 20px;">
 		<h3>Users</h3>
-		<hr>
+		<!-- <hr> -->
 		<div class="table-responsive">
 			<div class="bootstrap-table">
 				<div class="fixed-table-toolbar">
@@ -60,11 +62,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="toolbar clearfix">
+				<!-- <div class="toolbar clearfix">
 					<div class="toolbar-left">
 						<button class="btn btn-primary" style="margin-bottom: 10px;" (click)="goToRolesPage()">View roles</button>
 					</div>
-				</div>
+				</div> -->
 				<div class="fixed-table-container">
 					<div class="fixed-table-header">
 						<table></table>
@@ -91,11 +93,12 @@
 								<h4 *ngIf = "users?.length == 0"> There is no exsiting user </h4>
 								<tr *ngFor = "let i = index; let user of users | paginate: { itemsPerPage: 10, currentPage: p }">
 									<td class="text-left" style=""><a class="text-primary" (click)="viewRoles(user, viewRolesTemplate)">{{user.email}}</a></td>
-									<td class="text-left" style="">{{user.firstName}}</td>
+									<td class="text-left" style="">{{user.name}}</td>
 									<td class="text-left" style="">{{user.lastName}}</td>
-									<td><button class="btn btn-primary" (click)="openAddingRolePopup(addRole, user)">Add role</button>
-									<button *ngIf = "user.active && user.id != loggedUser.id" class="btn btn-secondary" (click)="changeStateOfUser(user, false)">Block</button>
-									<button  *ngIf = "!user.active && user.role[0].roleName == 'ROLE_LOGGED'" class="btn btn-danger" (click)="removeUser(user)">Remove</button>
+									<!-- <td><button class="btn btn-primary" (click)="openAddingRolePopup(addRole, user)">Add role</button> -->
+									<td>
+									<button *ngIf = "user.active && user.id != loggedUser.id" class="btn btn-danger" (click)="changeStateOfUser(user, false)">Block</button>
+									<!-- <button  *ngIf = "!user.active && user.role.userType == 'ROLE_LOGGED'" class="btn btn-danger" (click)="removeUser(user)">Remove</button> -->
 									<button *ngIf = "!user.active" class="btn btn-success" (click)="changeStateOfUser(user, true)">Activate</button></td>
 								</tr>
 							</tbody>

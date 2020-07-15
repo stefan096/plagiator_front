@@ -3,11 +3,11 @@
 export class Role{
 
     id: number;
-    roleName: string;
+    userType: string;
     
     constructor(){
         this.id = 0;
-        this.roleName = ""
+        this.userType = ""
     }
 
 }

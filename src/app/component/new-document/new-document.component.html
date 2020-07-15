@@ -1,0 +1,43 @@
+
+<app-navbar></app-navbar>
+
+<div class="col-sm-10">
+
+  <p>
+    new-document works!
+  </p>
+
+  <form>
+    <div class="form-group">
+      <label>Fajl &nbsp; &nbsp;</label>
+      <input 
+        type="file" 
+        placeholder="Izaberi naučni rad"
+        (change)="selectFile($event)"
+        value="Izaberi naucni rad">
+    </div>
+
+    <div class="form-group col-md-2">
+      <input type="submit" class="form-control btn btn-primary" 
+      value="Upload"  (click) = "uploadFile()">
+    </div>
+  </form>
+
+</div>
+
+  <div class="container" style="margin-top: 100px;">
+    <div class="container justify-content-md-center" style="display: -webkit-box;">
+      <div class="col-lg-12 p-0">
+            <a class="list-group-item" style="min-height: 220px; max-height: 350px;" *ngFor = "let i = index; let paper of papers">
+                <div style="display: inline-flex; width: 100%; padding-bottom: 0%; height: 10px;">
+                    <h5 class="col-lg-10"><span style="color: crimson; font-size: medium;">Rad: &nbsp;</span>{{paper.title}}</h5>
+                </div>
+
+                <div style="display: inline-flex; width: 100%;">
+                    <button  class="btn btn-info" style="position: relative; float: right; margin-right: 50px;" (click)="download(paper.id, paper.title)">Pregledaj</button>              
+                </div>
+            </a>
+      </div>
+    </div>
+  </div>
+

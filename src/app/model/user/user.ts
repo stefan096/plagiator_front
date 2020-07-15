@@ -4,22 +4,20 @@ export class User{
 
     id: number;
 	name: string;
-	lastName: string;
-	email: string ;
-    role: Role[];
-    username: string;
+    lastName: string;
+    phoneNumber: string;
+	email: string;
+    role: Role;
     active: boolean;
-    taskId: string;
     
     constructor(){
         this.id = 0;
         this.name = ""
         this.lastName = "";
         this.email = "";
-        this.role = [];
-        this.username = "";
+        this.role = new Role();
         this.active = true;
-        this.taskId = "";
+        this.phoneNumber = "";
     }
 
 }

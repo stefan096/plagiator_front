@@ -24,23 +24,25 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { RoleService } from './service/role.service';
 import { RegistrationComponent } from './component/users/registration/registration.component';
 import { PasswordValidation } from './component/users/registration/passwordValidation.directive';
-import { PaperService } from './service/paper.service';
 
 import { RegistrationLinkComponent } from './component/users/registration-link/registration-link.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { SearchService } from './service/search.service';
+import { OldDocumentsComponent } from './component/old-documents/old-documents.component';
+import { UploadFileService } from './service/upload-file.service';
+import { NewDocumentComponent } from './component/new-document/new-document.component';
+import { PaperService } from './service/paper.service';
 
 
 
 const appRoutes: Routes = [
-  /*{ path: 'record/:id', component: RecordDetailsComponent },
-  { path: 'main', component: MainComponent },  
-  { path: '', redirectTo: 'main', pathMatch: 'full' },*/
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegistrationComponent},
   { path: 'registracija/aktiviranjeNaloga/:userId', component: RegistrationLinkComponent},
   { path: 'home', component: HomePageComponent},
   { path: 'users', component: ViewUsersComponent},
+  { path: 'old-documents', component: OldDocumentsComponent},
+  { path: 'new-document', component: NewDocumentComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   
   { path: '**', component: PageNotFoundComponent }
@@ -57,6 +59,8 @@ const appRoutes: Routes = [
     RegistrationComponent,
     RegistrationLinkComponent,
     NavbarComponent,
+    OldDocumentsComponent,
+    NewDocumentComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,9 +82,10 @@ const appRoutes: Routes = [
     AuthService,
     UserService,
     RoleService,
-    PaperService,
     NgbActiveModal,
     SearchService,
+    UploadFileService,
+    PaperService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HInterceptorService,

@@ -8,7 +8,6 @@ import { environment } from 'environments/environment';
 export class UserService {
 
   baseUrl: string = environment.baseUrl + 'api';
-  baseUrlCamunda: string = environment.baseUrl + 'camunda';
 
   constructor(private http: HttpClient) { }
 
@@ -47,11 +46,6 @@ export class UserService {
   deleteUser(userId: number): Observable<{}>{
     return this.http.delete(this.baseUrl + `/users/${userId}`);
   }
-
-  registerUser(user: any, taskId: string): Observable<any> {
-    return this.http.post<any>(this.baseUrlCamunda + `/registration/post/${taskId}`, user);
-  }
-
 
 
 }
