@@ -28,14 +28,23 @@
   <div class="container" style="margin-top: 100px;">
     <div class="container justify-content-md-center" style="display: -webkit-box;">
       <div class="col-lg-12 p-0">
-            <a class="list-group-item" style="min-height: 220px; max-height: 350px;" *ngFor = "let i = index; let paper of papers">
+            <a class="list-group-item" style="min-height: 220px; max-height: 500px; margin-bottom: 10px;" 
+            *ngFor = "let i = index; let item of paperResultPlagiator.items">
+              <div style="display: inline-flex; width: 100%; padding-bottom: 0%; height: 10px;">
+                <h5 class="col-lg-10"><span style="color: crimson; font-size: medium;">Deo dokumenta: &nbsp;</span>{{item.partOfPage}}</h5>
+            </div>
+            <div *ngFor = "let j = index; let paper of item.papers" >
+              <hr>
                 <div style="display: inline-flex; width: 100%; padding-bottom: 0%; height: 10px;">
                     <h5 class="col-lg-10"><span style="color: crimson; font-size: medium;">Rad: &nbsp;</span>{{paper.title}}</h5>
                 </div>
-
+                <div style="display: inline-flex; width: 100%;">
+                  <h5 class="col-lg-10"><span style="color: crimson; font-size: medium;">Search Hits: &nbsp;</span>{{paper.searchHits}}</h5>              
+              </div>
                 <div style="display: inline-flex; width: 100%;">
                     <button  class="btn btn-info" style="position: relative; float: right; margin-right: 50px;" (click)="download(paper.id, paper.title)">Pregledaj</button>              
                 </div>
+              </div>
             </a>
       </div>
     </div>

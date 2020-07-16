@@ -3,6 +3,8 @@ import { UploadFileService } from 'app/service/upload-file.service';
 import { saveAs } from 'file-saver';
 import { Paper } from 'app/model/paper/paper';
 import { PaperService } from 'app/service/paper.service';
+import PaperResultPlagiator from 'app/model/paper/paperResultPlagiator';
+import ResultItem from 'app/model/paper/resultItem';
 
 @Component({
   selector: 'app-new-document',
@@ -14,6 +16,8 @@ export class NewDocumentComponent implements OnInit {
   selectedFiles: FileList;
   currentFileUpload: File;
   papers: Paper[] = [];
+  paperResultPlagiator: PaperResultPlagiator = new PaperResultPlagiator();
+  //items: ResultItem[] = 
 
   constructor(private uploadFileService: UploadFileService,
     private paperService: PaperService) {
@@ -21,23 +25,24 @@ export class NewDocumentComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.paperService.showPapers().subscribe(
-      res => {
-        this.papers = res;
-      }
-    )
+    // this.paperService.showPapers().subscribe(
+    //   res => {
+    //     this.papers = res;
+    //   }
+    // )
   }
 
   selectFile(event: any) {
     this.selectedFiles = event.target.files;
-
   }
 
   uploadFile(){
     this.currentFileUpload = this.selectedFiles.item(0);
-    this.uploadFileService.upload(this.currentFileUpload)
-    .subscribe(event => {
-      alert("Uspesno ste dodali rad");
+    this.uploadFileService.uploadNewPaper(this.currentFileUpload)
+    .subscribe(res => {
+      //alert("Uspesno ste dodali rad");
+      this.paperResultPlagiator = res;
+      //console.log(this.paperResultPlagiator)
     },
     err => {
       console.log('fail')

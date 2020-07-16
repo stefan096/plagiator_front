@@ -16,7 +16,8 @@ export class ViewUsersComponent implements OnInit {
 
   users: User[];
   allRoles: Role[];
-  userRoles: Role[];
+  //userRoles: Role[];
+  userRoles: Role;
   selectedUser: User;
   selectedRole: String;
   modalReference: NgbActiveModal;
@@ -66,9 +67,9 @@ export class ViewUsersComponent implements OnInit {
   }
 
   viewRoles(user: User, viewConnected:any){
-      // this.selectedUser = user;
-      // this.userRoles = user.role;
-      // this.modalReference = this.modalService.open(viewConnected, { centered: true });
+      this.selectedUser = user;
+      this.userRoles = user.role;
+      this.modalReference = this.modalService.open(viewConnected, { centered: true });
   }
 
   deleteRole(role: Role){
