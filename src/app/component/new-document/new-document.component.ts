@@ -5,7 +5,8 @@ import { Paper } from 'app/model/paper/paper';
 import { PaperService } from 'app/service/paper.service';
 import PaperResultPlagiator from 'app/model/paper/paperResultPlagiator';
 import ResultItem from 'app/model/paper/resultItem';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CONSTANT_FOR_SIMILAR_PAPER_VIEW, CONSTANT_FOR_NORMALIZATION } from 'app/service/constants.service';
 
 @Component({
   selector: 'app-new-document',
@@ -19,21 +20,50 @@ export class NewDocumentComponent implements OnInit {
   papers: Paper[] = [];
   paperResultPlagiator: PaperResultPlagiator = new PaperResultPlagiator();
   similarPapers: Paper[] = [];
+  constantRedColor: number = CONSTANT_FOR_SIMILAR_PAPER_VIEW / 100;
+  //constantNormalization: number = CONSTANT_FOR_NORMALIZATION;
+  constantNormalization: number = 1;
+  plagiatorId: number = undefined;
+  wrongAnalysis = false;
 
   constructor(private uploadFileService: UploadFileService,
-    private paperService: PaperService, private router: Router) {
+    private paperService: PaperService, private router: Router, route: ActivatedRoute) {
 
+      let res = localStorage.getItem('token');
+      if(!res){
+        this.router.navigate(['login']);
+      }
+
+      this.plagiatorId = +route.snapshot.paramMap.get("plagiatorId");
+
+      if(this.plagiatorId){
+        this.uploadFileService.getResultsForPaper(this.plagiatorId).subscribe(
+          res => {
+            this.paperResultPlagiator = res;
+            localStorage.setItem("paperResultPlagiator", JSON.stringify(this.paperResultPlagiator));
+            this.similarPapers = this.paperResultPlagiator.similarPapers;
+          },
+          err => {
+            if(err.status == 400){
+              //alert("errrr")
+              this.wrongAnalysis = true;
+            }
+          }
+        )
+      }
+      else{
+        let temp: PaperResultPlagiator = JSON.parse(localStorage.getItem("paperResultPlagiator"));
+        if(temp){
+          this.paperResultPlagiator = temp;
+        }
+        else{
+          this.paperResultPlagiator = new PaperResultPlagiator();
+        }
+      }
    }
 
   ngOnInit() {
 
-    let temp: PaperResultPlagiator = JSON.parse(localStorage.getItem("paperResultPlagiator"));
-    if(temp){
-      this.paperResultPlagiator = temp;
-    }
-    else{
-      this.paperResultPlagiator = new PaperResultPlagiator();
-    }
   }
 
   selectFile(event: any) {

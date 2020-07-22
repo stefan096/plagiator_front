@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { Paper } from 'app/model/paper/paper';
+import PaperResultPlagiator from 'app/model/paper/paperResultPlagiator';
 
 @Injectable()
 export class UploadFileService {
@@ -27,6 +28,10 @@ export class UploadFileService {
     paper.file = file;
     
     return this.http.post(this.baseUrl + `/upload/new`, formdata);
+  }
+
+  getResultsForPaper(plagiatorId: number): Observable<PaperResultPlagiator>{
+    return this.http.get<PaperResultPlagiator>(this.baseUrl + `/upload/new/results/` + plagiatorId);
   }
 
 

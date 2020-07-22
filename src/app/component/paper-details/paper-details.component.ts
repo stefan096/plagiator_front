@@ -7,6 +7,9 @@ import { Paper } from 'app/model/paper/paper';
 import { PaperService } from 'app/service/paper.service';
 import Report from 'app/model/paper/report';
 import Comment from 'app/model/paper/comment';
+import { CONSTANT_FOR_SIMILAR_PAPER_VIEW, CONSTANT_FOR_DETAIL_PAPER_VIEW } from 'app/service/constants.service';
+import ResultItem from 'app/model/paper/resultItem';
+import { e } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-paper-details',
@@ -21,19 +24,71 @@ export class PaperDetailsComponent implements OnInit {
   paperToCompare: Paper = new Paper();
   report: Report = new Report();
   comment: Comment = new Comment();
+  constantRedColor: number = CONSTANT_FOR_DETAIL_PAPER_VIEW / 100;
+  items: ResultItem[] = [];
+  unsortedItems: ResultItem[] = [];
+  sortedItems: ResultItem[] = [];
+  sortState = false;
 
   constructor(route: ActivatedRoute, private uploadFileService: UploadFileService, private paperService: PaperService) {
     this.paperId = +route.snapshot.paramMap.get("paperId");
     this.paperResultPlagiator = JSON.parse(localStorage.getItem("paperResultPlagiator"));
+    this.items = this.paperResultPlagiator.items;
+    this.unsortedItems = this.paperResultPlagiator.items;
+    this.sortedItems = this.paperResultPlagiator.items;
 
     this.paperService.getPaperById(this.paperId).subscribe(
       res => {
         this.paperToCompare = res;
+       
       }
     )
+
+   
+   }
+
+   sortItemsSimilarity(paperId){
+    this.items.sort(
+      function(item1, item2)
+      {
+        let item1Temp = undefined;
+        let item2Temp = undefined;
+
+        item1.papers.forEach(paper => {
+          if(paper.id == paperId){
+            item1Temp = paper.searchHits/item1.papers[0].searchHits;
+          }
+        })
+
+        item2.papers.forEach(paper => {
+          if(paper.id == paperId){
+            item2Temp = paper.searchHits/item2.papers[0].searchHits;
+          }
+        })
+
+
+        return item2Temp - item1Temp;
+      });
+   }
+
+   sortItemsPartOfDocument(){
+    this.items.sort(
+      function(item1, item2)
+      {
+        return item1.partOfPage - item2.partOfPage;
+      });
    }
 
   ngOnInit() {
+  }
+
+  checkValue(){
+    if(this.sortState){
+      this.sortItemsSimilarity(this.paperId);
+    }
+    else{
+      this.sortItemsPartOfDocument();
+    }
   }
 
   submitComment(){

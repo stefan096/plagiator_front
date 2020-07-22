@@ -6,6 +6,9 @@ import Comment from 'app/model/paper/comment';
 import { User } from 'app/model/user/user';
 import { UploadFileService } from 'app/service/upload-file.service';
 import { saveAs } from 'file-saver';
+import { AuthService } from 'app/service/auth.service';
+import { UserService } from 'app/service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-documents',
@@ -14,18 +17,28 @@ import { saveAs } from 'file-saver';
 })
 export class DocumentsComponent implements OnInit {
 
-  constructor(private paperService: PaperService, private modalService: NgbModal,
-     private uploadFileService: UploadFileService) 
-     {
-
-     }
-
   papers: Paper[] = [];
 
   modalReference: NgbActiveModal;
   dropdownSettings = {};
   p: any;
   comments: Comment[] = [];
+  email: string = "";
+  loggedUser: User = new User();
+
+  constructor(private paperService: PaperService, private modalService: NgbModal, private router: Router, 
+    private uploadFileService: UploadFileService, private authService: AuthService, private userService: UserService) 
+    {
+
+     let res = localStorage.getItem('token');
+     if(res != null){
+      this.loggedUser.email = this.authService.getUsername(res);
+      this.userService.findByEmail(this.loggedUser.email).subscribe(
+        s => {
+          this.loggedUser = s;
+        });
+    }
+  }
 
   ngOnInit() {
     this.getAllData();
@@ -73,6 +86,10 @@ export class DocumentsComponent implements OnInit {
         alert('Greska!')
       }
     )
+  }
+
+  results(plagiatorId: number){
+    this.router.navigate(['new-document/' + plagiatorId ]);
   }
 
 }

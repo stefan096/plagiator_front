@@ -8,7 +8,8 @@
       (click)="download(paperResultPlagiator.uploadedPaper.id, paperResultPlagiator.uploadedPaper.title)"
     >
       Pregledaj
-    </button>              
+    </button>
+        
 </div>
 
   <div style="display: inline-flex; width: 100%; justify-content: center;">
@@ -22,11 +23,20 @@
     </button>              
   </div>
 
+  <!-- Rounded switch -->
+  <div class="sorting">
+    <label  class="label">Sortiraj po sličnosti: </label>
+    <label class="switch">
+      <input type="checkbox" [(ngModel)]="sortState" (change)="checkValue()">
+      <span class="slider round"></span>
+    </label>
+  </div>
+
   <div class="container" style="margin-top: 100px;">
     <div class="container justify-content-md-center" style="display: -webkit-box;">
       <div class="col-lg-12 p-0">
             <a class="list-group-item" style="max-height: 500px; margin-bottom: 10px;" 
-            *ngFor = "let i = index; let item of paperResultPlagiator.items">
+            *ngFor = "let i = index; let item of items">
               <div style="display: inline-flex; width: 100%; padding-bottom: 0%; height: 10px;">
                 <h5 class="col-lg-10"><span style="color: crimson; font-size: medium;">Deo dokumenta: &nbsp;</span>{{(item.partOfPage-1)*wordsPerPart+1}}
                 - {{item.partOfPage*wordsPerPart}} reči</h5>
@@ -34,7 +44,7 @@
               <div style="display: inline-flex; width: 100%; padding-bottom: 0%; height: 10px;">
                 <h5 class="col-lg-10">
                   <span style="color: crimson; font-size: medium;">Tekst: &nbsp;</span>
-                  {{item.textToShow}}
+                  {{item.textToShow}}...
                 </h5>
               </div>
             <div *ngFor = "let j = index; let paper of item.papers" >
@@ -43,11 +53,13 @@
                       <h5 class="col-lg-10"><span style="color: crimson; font-size: medium;">Rad: &nbsp;</span>{{paper.title}}</h5>
                   </div>
                   <div style="display: inline-flex; width: 100%;">
-                      <h5 *ngIf="(paper.searchHits/item.papers[0].searchHits) >= 0.50" class="col-lg-10" style="color: crimson;">
-                        <span style="color: crimson; font-size: medium;">Sličnost u procentima: &nbsp;</span>{{(paper.searchHits/item.papers[0].searchHits)*100}} %
+                      <h5 *ngIf="(paper.searchHits/item.papers[0].searchHits) >= constantRedColor" class="col-lg-10" style="color: crimson;">
+                        <span style="color: crimson; font-size: medium;">Sličnost u procentima: &nbsp;</span>
+                        {{(paper.searchHits/item.papers[0].searchHits)*100}} %
                       </h5>
-                      <h5 *ngIf="paper.searchHits/item.papers[0].searchHits < 0.50" class="col-lg-10">
-                        <span style="color: crimson; font-size: medium;">Sličnost u procentima: &nbsp;</span>{{(paper.searchHits/item.papers[0].searchHits)*100}} %
+                      <h5 *ngIf="paper.searchHits/item.papers[0].searchHits < constantRedColor" class="col-lg-10">
+                        <span style="color: crimson; font-size: medium;">Sličnost u procentima: &nbsp;</span>
+                        {{(paper.searchHits/item.papers[0].searchHits)*100}} %
                       </h5>            
                 </div>
               </div>

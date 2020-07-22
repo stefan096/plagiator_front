@@ -34,6 +34,7 @@ import { NewDocumentComponent } from './component/new-document/new-document.comp
 import { PaperService } from './service/paper.service';
 import { PaperDetailsComponent } from './component/paper-details/paper-details.component';
 import { DocumentsComponent } from './component/documents/documents.component';
+import { ConstantsService } from './service/constants.service';
 
 
 
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
   { path: 'home', component: HomePageComponent},
   { path: 'users', component: ViewUsersComponent},
   { path: 'old-documents', component: OldDocumentsComponent},
+  { path: 'new-document/:plagiatorId', component: NewDocumentComponent},
   { path: 'new-document', component: NewDocumentComponent},
   { path: 'documents', component: DocumentsComponent},
   { path: 'new-document/:paperId/details', component: PaperDetailsComponent},
@@ -81,7 +83,7 @@ const appRoutes: Routes = [
     NgbModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true, useHash: true } // <-- debugging purposes only
+      { enableTracing: false, useHash: true } // <-- debugging purposes only
     )
   ],
   providers: [ //registrujem servise obaveznoo!!!!!!
@@ -92,6 +94,7 @@ const appRoutes: Routes = [
     SearchService,
     UploadFileService,
     PaperService,
+    ConstantsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HInterceptorService,

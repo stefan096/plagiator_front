@@ -19,25 +19,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    // if(localStorage.getItem('token') != null){
-    //   this.loggedUser.email = this.authService.getUsername(localStorage.getItem('token'));
-    //   let isAdmin = false;
-    //   this.userService.findByEmail(this.loggedUser.email).subscribe(
-    //     s=>{
-    //       this.loggedUser = s;          
-    //       // this.loggedUser.role.forEach(element =>
-    //       //   {
 
-              
-    //       //   if(element.roleName == "ROLE_ADMIN"){
-    //       //     isAdmin = true;
-    //       //       }
-    //       //     }
-    //       //   )
-    //   }
-    //   )
-    //   }
-    }
+  }
 
   login(){
   localStorage.removeItem('token');
@@ -45,23 +28,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         res => 
         {
-          console.log(res);
           localStorage.setItem('token', res);
-          //let role = this.auth.getRoles(res);
-
-          
-          //samo da bi postavio ulogo naog korisnika
-          // this.userService.findByEmail(this.user.email).subscribe(
-          //   s => {
-          //     this.loggedUser = s;
-          //     this.router.navigate(['home']);
-              
-          //   },
-          //   err =>{
-          //     console.log("err za pronalazenje po mailu");
-          //   } 
-          // );
-
           this.router.navigate(['home']);
 
         },

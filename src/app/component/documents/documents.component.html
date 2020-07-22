@@ -91,7 +91,8 @@
 									<td class="text-left" style="">{{paper.user.email}}</td>
 									<td>
                     <button class="btn btn-primary" (click)="download(paper.id, paper.title)">Pregledaj</button>
-                    <button class="btn btn-danger" (click)="deletePaper(paper.id)">Obriši</button>
+                    <button *ngIf="loggedUser.role.userType == 'ROLE_ADMIN' || paper.user.id == loggedUser.id" class="btn btn-danger" (click)="deletePaper(paper.id)">Obriši</button>
+                    <button *ngIf="paper.plagiatorId" class="btn btn-info" (click)="results(paper.plagiatorId)">Rezultati</button>
 									</td>
 								</tr>
 							</tbody>

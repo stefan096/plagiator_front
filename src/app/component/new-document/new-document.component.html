@@ -3,10 +3,10 @@
 
 <div class="col-sm-10">
 
-  <p>
-    new-document works!
-  </p>
-
+  <h3>
+    Okači nove dokumente
+  </h3>
+  <br>
   <form>
     <div class="form-group">
       <label>Fajl &nbsp; &nbsp;</label>
@@ -55,7 +55,14 @@
                   <h5 class="col-lg-10"><span style="color: crimson; font-size: medium;">Okačen od strane: &nbsp;</span>{{paper.user.email}}</h5>
               </div>
                 <div style="display: inline-flex; width: 100%;">
-                  <h5 class="col-lg-10"><span style="color: crimson; font-size: medium;">Sličnost sa dokumentom: &nbsp;</span>{{paper.similarProcent*100}} %</h5>              
+                  <h5 *ngIf="paper.similarProcent*constantNormalization >= constantRedColor" class="col-lg-10" style="color: crimson;">
+                      <span style="color: crimson; font-size: medium;">Sličnost sa dokumentom: &nbsp;</span>
+                      {{paper.similarProcent*100*constantNormalization}} %
+                    </h5>   
+                  <h5  *ngIf="paper.similarProcent*constantNormalization < constantRedColor" class="col-lg-10">
+                    <span style="color: crimson; font-size: medium;">Sličnost sa dokumentom: &nbsp;</span>
+                    {{paper.similarProcent*100*constantNormalization}} %
+                  </h5>            
               </div>
 
                 <div style="display: inline-flex; width: 100%;">
@@ -67,6 +74,12 @@
             </a>
       </div>
     </div>
+  </div>
+
+  <div *ngIf = "wrongAnalysis">
+      <h1>
+        Analiza za traženi dokument više ne postoji!
+      </h1>
   </div>
 
 
