@@ -1,0 +1,106 @@
+<app-navbar></app-navbar>
+
+<ng-template #viewCommentsTemplate let-modal>
+  <div class="modal-header">
+     <h3>Komentari</h3>
+   </div>
+   <div class="modal-body">
+   <div class="table-responsive">
+     <div class="bootstrap-table">
+       <div class="fixed-table-container">
+         <div class="fixed-table-body">
+           <table id="grid" class="table table-striped table-hover" data-toolbar="#toolbargrid" data-pagination="true" data-search="true">
+             <thead>
+               <tr>
+                 <th class="text-left" style="">
+                   <div class="th-inner sortable">Komentar</div>
+                   <div class="fht-cell"></div>
+                 </th>
+                 <th class="text-left" style="">
+                  <div class="th-inner sortable">Autor</div>
+                  <div class="fht-cell"></div>
+                </th>
+                <th class="text-left" style="">
+                  <div class="th-inner sortable">Plagijat sa</div>
+                  <div class="fht-cell"></div>
+                </th>
+                <th class="text-left" style="">
+                  <div class="th-inner sortable">Sigurnost u plagijat (1-5)</div>
+                  <div class="fht-cell"></div>
+                </th>
+               </tr>
+             </thead>
+             <tbody>
+               <tr>
+                 <tr *ngFor = "let i = index; let comment of comments | paginate: { itemsPerPage: 10, currentPage: p }">
+                  <td class="text-left" style="">{{comment.text}}</td>
+                  <td class="text-left" style="">{{comment.user.email}}</td>
+                  <td class="text-left" style="">{{comment.plagiatWith}}</td>
+                  <td class="text-left" style="">{{comment.matcheNumber}}</td>
+               </tr>
+             </tbody>
+             <tfoot></tfoot>
+           </table>
+         </div>
+       </div>
+     </div>
+   </div>
+  </div>
+</ng-template>
+
+<div class="row">
+	<div class="col-md-8 offset-sm-2" style="margin-top: 20px;">
+		<h3>Dokumenti</h3>
+		<div class="table-responsive">
+			<div class="bootstrap-table">
+				<div class="fixed-table-toolbar">
+					<div class="bars pull-left">
+						<div id="toolbargrid">
+							<div class="form-inline" role="form">
+								 
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="fixed-table-container">
+					<div class="fixed-table-header">
+						<table></table>
+					</div>
+					<div class="fixed-table-body">
+						<table id="grid" class="table table-striped table-hover" data-toolbar="#toolbargrid" data-pagination="true" data-search="true">
+							<thead>
+								<tr>
+									<th class="text-left" style="">
+										<div class="th-inner sortable">Naziv</div>
+										<div class="fht-cell"></div>
+									</th>
+									<th class="text-left" style="">
+										<div class="th-inner sortable">Korisnik koji je okačio</div>
+										<div class="fht-cell"></div>
+                  </th>
+                  <th class="text-left" style="">
+										<div class="th-inner sortable">Akcije</div>
+										<div class="fht-cell"></div>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor = "let i = index; let paper of papers | paginate: { itemsPerPage: 10, currentPage: p }">
+									<td class="text-left" style=""><a class="text-primary" (click)="viewComments(paper, viewCommentsTemplate)">{{paper.title}}</a></td>
+									<td class="text-left" style="">{{paper.user.email}}</td>
+									<td>
+                    <button class="btn btn-primary" (click)="download(paper.id, paper.title)">Pregledaj</button>
+                    <button class="btn btn-danger" (click)="deletePaper(paper.id)">Obriši</button>
+									</td>
+								</tr>
+							</tbody>
+							<tfoot></tfoot>
+						</table>
+						<pagination-controls (pageChange)="p = $event"></pagination-controls>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

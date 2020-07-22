@@ -23,18 +23,21 @@ export class OldDocumentsComponent implements OnInit {
   }
 
   uploadFile(){
-    //potencijalno namestiti multiselect
-    this.currentFileUpload = this.selectedFiles.item(0);
-    console.log("AAA")
-    console.log(this.selectedFiles)
-    this.uploadFileService.upload(this.currentFileUpload)
-    .subscribe(event => {
-      alert("Uspesno ste dodali rad");
-      //this.router.navigate(['home']);
-    },
-    err => {
-      console.log('fail')
-    });
+    let temp = 0;
+    for (var i = 0; i < this.selectedFiles.length; ++i) {
+      this.uploadFileService.upload(this.selectedFiles.item(i))
+      .subscribe(res => {
+       temp += 1;
+
+       if(temp == this.selectedFiles.length){
+        alert("Uspesno ste dodali rad");
+       }
+      },
+      err => {
+        console.log('fail');
+      });
+
+    }
   }
 
 }

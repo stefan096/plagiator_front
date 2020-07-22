@@ -11,15 +11,28 @@
     <div class="form-group">
       <label>Fajl &nbsp; &nbsp;</label>
       <input 
-        type="file" 
+        type="file"
         placeholder="Izaberi naučni rad"
         (change)="selectFile($event)"
         value="Izaberi naucni rad">
     </div>
 
     <div class="form-group col-md-2">
-      <input type="submit" class="form-control btn btn-primary" 
-      value="Upload"  (click) = "uploadFile()">
+      <input
+        style="min-width: 150px;"
+        type="submit"
+        class="form-control btn btn-primary" 
+        value="Upload"
+        (click) = "uploadFile()">
+    </div>
+
+    <div class="form-group col-md-2">
+      <input
+        style="min-width: 150px;" 
+        type="submit" 
+        class="form-control btn btn-danger" 
+        value="Obriši odmah"  
+        (click) = "deleteFile()">
     </div>
   </form>
 
@@ -28,25 +41,33 @@
   <div class="container" style="margin-top: 100px;">
     <div class="container justify-content-md-center" style="display: -webkit-box;">
       <div class="col-lg-12 p-0">
-            <a class="list-group-item" style="min-height: 220px; max-height: 500px; margin-bottom: 10px;" 
-            *ngFor = "let i = index; let item of paperResultPlagiator.items">
-              <div style="display: inline-flex; width: 100%; padding-bottom: 0%; height: 10px;">
+            <a class="list-group-item" style="max-height: 300px; margin-bottom: 10px;" 
+            *ngFor = "let i = index; let paper of paperResultPlagiator.similarPapers">
+              <!-- <div style="display: inline-flex; width: 100%; padding-bottom: 0%; height: 10px;">
                 <h5 class="col-lg-10"><span style="color: crimson; font-size: medium;">Deo dokumenta: &nbsp;</span>{{item.partOfPage}}</h5>
-            </div>
-            <div *ngFor = "let j = index; let paper of item.papers" >
-              <hr>
+            </div> -->
+            <!-- <div *ngFor = "let j = index; let paper of item.papers" > -->
+              <!-- <hr> -->
                 <div style="display: inline-flex; width: 100%; padding-bottom: 0%; height: 10px;">
                     <h5 class="col-lg-10"><span style="color: crimson; font-size: medium;">Rad: &nbsp;</span>{{paper.title}}</h5>
                 </div>
-                <div style="display: inline-flex; width: 100%;">
-                  <h5 class="col-lg-10"><span style="color: crimson; font-size: medium;">Search Hits: &nbsp;</span>{{paper.searchHits}}</h5>              
+                <div style="display: inline-flex; width: 100%; padding-bottom: 0%; height: 10px;">
+                  <h5 class="col-lg-10"><span style="color: crimson; font-size: medium;">Okačen od strane: &nbsp;</span>{{paper.user.email}}</h5>
               </div>
                 <div style="display: inline-flex; width: 100%;">
-                    <button  class="btn btn-info" style="position: relative; float: right; margin-right: 50px;" (click)="download(paper.id, paper.title)">Pregledaj</button>              
+                  <h5 class="col-lg-10"><span style="color: crimson; font-size: medium;">Sličnost sa dokumentom: &nbsp;</span>{{paper.similarProcent*100}} %</h5>              
+              </div>
+
+                <div style="display: inline-flex; width: 100%;">
+                    <button  class="btn btn-info" style="position: relative; float: right; margin-right: 50px;" (click)="details(paper.id)">Detalji</button>   
+                    <button  class="btn btn-info" style="position: relative; float: right; margin-right: 50px;" (click)="download(paper.id, paper.title)">Pregledaj</button> 
                 </div>
-              </div>
+
+              <!-- </div> -->
             </a>
       </div>
     </div>
   </div>
+
+
 

@@ -49,6 +49,7 @@ export class AuthService {
 
     logout(): void {
       localStorage.removeItem('token');
+      localStorage.removeItem('paperResultPlagiator');
       this.router.navigate(['login']);
     }
 

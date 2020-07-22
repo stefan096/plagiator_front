@@ -1,3 +1,4 @@
+import { User } from "../user/user";
 
 
 export class Paper {
@@ -5,13 +6,17 @@ export class Paper {
     id: number;
     pathForPDF: string;
     file: any;
-    searchHits: string;
+    searchHits: number;
+    similarProcent: number;
+    user: User;
 
     constructor(){
         this.id = 0;
         this.pathForPDF = "";
         this.file = "";
-        this.searchHits = "";
+        this.searchHits = 0;
+        this.similarProcent = 0;
+        this.user = new User();
     }
 
 }

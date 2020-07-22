@@ -32,6 +32,8 @@ import { OldDocumentsComponent } from './component/old-documents/old-documents.c
 import { UploadFileService } from './service/upload-file.service';
 import { NewDocumentComponent } from './component/new-document/new-document.component';
 import { PaperService } from './service/paper.service';
+import { PaperDetailsComponent } from './component/paper-details/paper-details.component';
+import { DocumentsComponent } from './component/documents/documents.component';
 
 
 
@@ -43,6 +45,8 @@ const appRoutes: Routes = [
   { path: 'users', component: ViewUsersComponent},
   { path: 'old-documents', component: OldDocumentsComponent},
   { path: 'new-document', component: NewDocumentComponent},
+  { path: 'documents', component: DocumentsComponent},
+  { path: 'new-document/:paperId/details', component: PaperDetailsComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   
   { path: '**', component: PageNotFoundComponent }
@@ -61,6 +65,8 @@ const appRoutes: Routes = [
     NavbarComponent,
     OldDocumentsComponent,
     NewDocumentComponent,
+    PaperDetailsComponent,
+    DocumentsComponent
   ],
   imports: [
     BrowserModule,

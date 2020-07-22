@@ -10,13 +10,14 @@
 				<a class="nav-item nav-link active" style="color: white;" [routerLink]="['/home']">Početna</a>
 				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/new-document']" >Proveri rad</a>
 				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/old-documents']" >Uploaduj stare dokumente</a>
+				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/documents']" >Dokumenti</a>
 				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/users']" *ngIf="isAdmin">Korisnici</a>
 				
 			</div>
 			<div class="navbar-nav ml-auto">
 				<a class="nav-item nav-link" style="color: white;" [routerLink]="['/register']" *ngIf="!loggedIn">Registracija</a>
-        <a class="nav-item nav-link" style="color: white;" [routerLink]="['/login']" *ngIf="!loggedIn">Prijava</a>
-        <a class="nav-item nav-link" style="color: white;" (click)="logOut()" *ngIf="loggedIn">Odjava</a>
+        		<a class="nav-item nav-link" style="color: white;" [routerLink]="['/login']" *ngIf="!loggedIn">Prijava</a>
+       			<a class="nav-item nav-link" style="color: white;" (click)="logOut()" *ngIf="loggedIn">Odjava</a>
 			</div>
 		</div>
 	</nav>

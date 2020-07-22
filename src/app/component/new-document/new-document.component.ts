@@ -5,6 +5,7 @@ import { Paper } from 'app/model/paper/paper';
 import { PaperService } from 'app/service/paper.service';
 import PaperResultPlagiator from 'app/model/paper/paperResultPlagiator';
 import ResultItem from 'app/model/paper/resultItem';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-document',
@@ -17,19 +18,22 @@ export class NewDocumentComponent implements OnInit {
   currentFileUpload: File;
   papers: Paper[] = [];
   paperResultPlagiator: PaperResultPlagiator = new PaperResultPlagiator();
-  //items: ResultItem[] = 
+  similarPapers: Paper[] = [];
 
   constructor(private uploadFileService: UploadFileService,
-    private paperService: PaperService) {
+    private paperService: PaperService, private router: Router) {
 
    }
 
   ngOnInit() {
-    // this.paperService.showPapers().subscribe(
-    //   res => {
-    //     this.papers = res;
-    //   }
-    // )
+
+    let temp: PaperResultPlagiator = JSON.parse(localStorage.getItem("paperResultPlagiator"));
+    if(temp){
+      this.paperResultPlagiator = temp;
+    }
+    else{
+      this.paperResultPlagiator = new PaperResultPlagiator();
+    }
   }
 
   selectFile(event: any) {
@@ -42,6 +46,8 @@ export class NewDocumentComponent implements OnInit {
     .subscribe(res => {
       //alert("Uspesno ste dodali rad");
       this.paperResultPlagiator = res;
+      localStorage.setItem("paperResultPlagiator", JSON.stringify(this.paperResultPlagiator));
+      this.similarPapers = this.paperResultPlagiator.similarPapers;
       //console.log(this.paperResultPlagiator)
     },
     err => {
@@ -53,13 +59,25 @@ export class NewDocumentComponent implements OnInit {
   download(id: number, title: string){
     this.uploadFileService.download(id).subscribe(
       (res: any) => {
-        console.log(res)
-        //var filename = title +'.pdf';
         var filename = title;
         saveAs(res, filename);
       },
       (error: any) => {
         alert('Greska!')
+      }
+    )
+  }
+
+  details(id: number){
+    this.router.navigate(['new-document/' + id + '/details']);
+  }
+
+  deleteFile(){
+    this.paperService.deletePaper(this.paperResultPlagiator.uploadedPaper.id).subscribe(
+      res => {
+        localStorage.removeItem('paperResultPlagiator');
+        window.location.reload();
+        //alert("Uspešno ste obrisali fajl");
       }
     )
   }

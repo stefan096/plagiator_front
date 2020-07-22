@@ -73,8 +73,4 @@ export class LoginComponent implements OnInit {
   }
 
 
-  prodji(){
-    this.router.navigate(['home']);
-  }
-
 }
