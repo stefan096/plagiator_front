@@ -30,6 +30,16 @@ export class RegistrationComponent implements OnInit {
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   }
+
+  validatePasswordPattern(password: string){
+
+    if(password.length < 12){
+      return false;
+    }
+
+    let re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{12,}$/;
+    return re.test(String(password));
+  }
   
 
   validatePasswords(){
@@ -62,6 +72,10 @@ export class RegistrationComponent implements OnInit {
   
     if(!this.validatePasswords()){
       return "lozinka i potvrda lozinke moraju da se poklapaju!";
+    }
+
+    if(!this.validatePasswordPattern(this.user.password)){
+      return "lozinka mora minimalno da ima 12 karaktera bar jedno malo, jedno veliko slovo, jedan broj i jedan specijalan znak!";
     }
   
     if(this.user.name === "" || this.user.name.length > this.maxLength){

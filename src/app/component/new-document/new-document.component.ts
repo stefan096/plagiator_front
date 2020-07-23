@@ -44,10 +44,11 @@ export class NewDocumentComponent implements OnInit {
             this.similarPapers = this.paperResultPlagiator.similarPapers;
           },
           err => {
-            if(err.status == 400){
-              //alert("errrr")
-              this.wrongAnalysis = true;
-            }
+            // if(err.status == 400){
+            //   this.wrongAnalysis = true;
+            // }
+
+            this.router.navigate(['home']);
           }
         )
       }

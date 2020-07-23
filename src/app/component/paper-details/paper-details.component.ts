@@ -29,6 +29,7 @@ export class PaperDetailsComponent implements OnInit {
   unsortedItems: ResultItem[] = [];
   sortedItems: ResultItem[] = [];
   sortState = false;
+  p: any;
 
   constructor(route: ActivatedRoute, private uploadFileService: UploadFileService, private paperService: PaperService) {
     this.paperId = +route.snapshot.paramMap.get("paperId");
@@ -65,7 +66,6 @@ export class PaperDetailsComponent implements OnInit {
             item2Temp = paper.searchHits/item2.papers[0].searchHits;
           }
         })
-
 
         return item2Temp - item1Temp;
       });
