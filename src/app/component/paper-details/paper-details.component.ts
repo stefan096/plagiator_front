@@ -101,6 +101,14 @@ export class PaperDetailsComponent implements OnInit {
       return;
     }
 
+    if(this.comment.matcheNumber > 5){
+      this.comment.matcheNumber = 5;
+    }
+
+    if(this.comment.matcheNumber < 1){
+      this.comment.matcheNumber = 1;
+    }
+
     this.report.paperToCheck = this.paperResultPlagiator.uploadedPaper; //ovaj dokument se malopre uplodovao
     this.report.paperUploaded = this.paperToCompare; //ovaj dokument je vec davno uplodovan
     this.report.comments.push(this.comment);

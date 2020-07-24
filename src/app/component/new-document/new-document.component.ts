@@ -72,6 +72,10 @@ export class NewDocumentComponent implements OnInit {
   }
 
   uploadFile(){
+    if (!this.selectedFiles) {
+      return;
+    }
+
     this.currentFileUpload = this.selectedFiles.item(0);
     this.uploadFileService.uploadNewPaper(this.currentFileUpload)
     .subscribe(res => {

@@ -23,6 +23,10 @@ export class OldDocumentsComponent implements OnInit {
   }
 
   uploadFile(){
+    if (!this.selectedFiles) {
+      return;
+    }
+    
     let temp = 0;
     for (var i = 0; i < this.selectedFiles.length; ++i) {
       this.uploadFileService.upload(this.selectedFiles.item(i))
