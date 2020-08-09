@@ -74,9 +74,9 @@ export class RegistrationComponent implements OnInit {
       return "lozinka i potvrda lozinke moraju da se poklapaju!";
     }
 
-    if(!this.validatePasswordPattern(this.user.password)){
-      return "lozinka mora minimalno da ima 12 karaktera bar jedno malo, jedno veliko slovo, jedan broj i jedan specijalan znak!";
-    }
+    // if(!this.validatePasswordPattern(this.user.password)){
+    //   return "lozinka mora minimalno da ima 12 karaktera bar jedno malo, jedno veliko slovo, jedan broj i jedan specijalan znak!";
+    // }
   
     if(this.user.name === "" || this.user.name.length > this.maxLength){
       return "Morate popuniti ime koja mora biti kraca od " + this.maxLength + " karaktera";
